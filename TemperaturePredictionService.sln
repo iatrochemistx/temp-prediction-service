@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperaturePredictionService.Core", "TemperaturePredictionService.Core\TemperaturePredictionService.Core.csproj", "{5362AD0B-D4DC-470C-BE09-2ECCFD876186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperaturePredictionService.Infrastructure", "TemperaturePredictionService.Infrastructure\TemperaturePredictionService.Infrastructure.csproj", "{3A33B049-565D-45A5-914B-E9E6A197DE07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperaturePredictionService.Application", "TemperaturePredictionService.Application\TemperaturePredictionService.Application.csproj", "{08255408-31C8-425D-81F4-3EAF6D73745C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TemperaturePredictionService.Api", "TemperaturePredictionService.Api\TemperaturePredictionService.Api.csproj", "{D78F6426-F902-4620-89A9-1ECBA64040E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5362AD0B-D4DC-470C-BE09-2ECCFD876186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5362AD0B-D4DC-470C-BE09-2ECCFD876186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5362AD0B-D4DC-470C-BE09-2ECCFD876186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5362AD0B-D4DC-470C-BE09-2ECCFD876186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A33B049-565D-45A5-914B-E9E6A197DE07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A33B049-565D-45A5-914B-E9E6A197DE07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A33B049-565D-45A5-914B-E9E6A197DE07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A33B049-565D-45A5-914B-E9E6A197DE07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08255408-31C8-425D-81F4-3EAF6D73745C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08255408-31C8-425D-81F4-3EAF6D73745C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08255408-31C8-425D-81F4-3EAF6D73745C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08255408-31C8-425D-81F4-3EAF6D73745C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78F6426-F902-4620-89A9-1ECBA64040E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78F6426-F902-4620-89A9-1ECBA64040E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78F6426-F902-4620-89A9-1ECBA64040E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78F6426-F902-4620-89A9-1ECBA64040E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,6 +1,11 @@
-public class TemperatureRecord
+using System;
+
+namespace TemperaturePredictionService.Core.Models
 {
-    public DateTime Date { get; set; }
-    public string City { get; set; } = default!;
-    public float Temperature { get; set; }
+    public class TemperatureRecord
+    {
+        public DateTime Date { get; set; }
+        public string City { get; set; } = default!;
+        public float Temperature { get; set; }
+    }
 }

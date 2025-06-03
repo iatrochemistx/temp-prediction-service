@@ -14,7 +14,7 @@ using Xunit;
 namespace TemperaturePredictionService.Tests.Infrastructure;
 
 /// <summary>
-/// Unit tests for <see cref="CsvTemperatureDataLoader"/>.
+/// Unit tests for CsvTemperatureDataLoader/>.
 /// </summary>
 public sealed class CsvTemperatureDataLoaderTests{
 

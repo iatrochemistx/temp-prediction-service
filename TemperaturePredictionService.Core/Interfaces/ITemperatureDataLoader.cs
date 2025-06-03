@@ -5,8 +5,11 @@ using TemperaturePredictionService.Core.Models;
 
 namespace TemperaturePredictionService.Core.Interfaces 
 {
-    public interface ITemperatureDataLoader
+   public interface ITemperatureDataLoader
 {
-    IEnumerable<TemperatureRecord> LoadRecords(string filePath);
+    IAsyncEnumerable<TemperatureRecord> LoadRecords(
+        string? filePath = null,
+        CancellationToken ct = default);
 }
+
 }

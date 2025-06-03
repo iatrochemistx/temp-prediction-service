@@ -4,51 +4,39 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using OpenAI;
-using OpenAI.Embeddings;      // v2.x namespace
 using TemperaturePredictionService.Core.Interfaces;
 using TemperaturePredictionService.Infrastructure.Configuration;
 
-namespace TemperaturePredictionService.Infrastructure.AI;
-
-public sealed class OpenAiEmbeddingService : IEmbeddingService
+namespace TemperaturePredictionService.Infrastructure.AI
 {
-    private readonly OpenAIClient        _client;
-    private readonly IMemoryCache        _cache;
-    private readonly ILogger<OpenAiEmbeddingService> _log;
-    private readonly OpenAiOptions       _opts;
-
-    public OpenAiEmbeddingService(
-        OpenAIClient client,
-        IMemoryCache cache,
-        IOptions<OpenAiOptions> opts,
-        ILogger<OpenAiEmbeddingService> log)
+    public sealed class OpenAiEmbeddingService : IEmbeddingService
     {
-        _client = client;
-        _cache  = cache;
-        _opts   = opts.Value;
-        _log    = log;
-    }
+        private readonly IEmbeddingClientAdapter _embeddingClient;
+        private readonly IMemoryCache _cache;
+        private readonly ILogger<OpenAiEmbeddingService> _log;
+        private readonly OpenAiOptions _opts;
 
-    public async Task<float[]> GetEmbeddingAsync(
-        string text,
-        CancellationToken ct = default)
-    {
-        if (_cache.TryGetValue(text, out float[] cached))
-            return cached;
+        public OpenAiEmbeddingService(
+            IEmbeddingClientAdapter embeddingClient,  
+            IOptions<OpenAiOptions> opts,
+            IMemoryCache cache,
+            ILogger<OpenAiEmbeddingService> log)
+        {
+            _embeddingClient = embeddingClient;
+            _opts = opts.Value;
+            _cache = cache;
+            _log = log;
+        }
 
-        // v2.x style call
-        EmbeddingResponse resp = await _client.Embeddings.CreateAsync(
-            new EmbeddingRequest
-            {
-                Model = _opts.Model,
-                Input = text
-            },
-            ct);
+        public async Task<float[]> GetEmbeddingAsync(string text, CancellationToken ct = default)
+        {
+            if (_cache.TryGetValue(text, out float[] cached))
+                return cached;
 
-        float[] vector = resp.Data[0].Embedding;
+            var vector = await _embeddingClient.GenerateAsync(text, ct);
 
-        _cache.Set(text, vector, TimeSpan.FromDays(_opts.CacheDays));
-        return vector;
+            _cache.Set(text, vector, TimeSpan.FromDays(_opts.CacheDays));
+            return vector;
+        }
     }
 }

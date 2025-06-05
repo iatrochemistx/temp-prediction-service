@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TemperaturePredictionService.Core\TemperaturePredictionService.Core.csproj" />
     <ProjectReference Include="..\TemperaturePredictionService.Infrastructure\TemperaturePredictionService.Infrastructure.csproj" />
+    <ProjectReference Include="..\TemperaturePredictionService.Application\TemperaturePredictionService.Application.csproj" />
   </ItemGroup>
 
 </Project>

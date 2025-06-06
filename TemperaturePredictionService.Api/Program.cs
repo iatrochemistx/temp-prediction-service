@@ -24,6 +24,7 @@ builder.Services.AddSingleton<ITemperaturePredictionService,
                               TemperaturePredictionService.Application.TemperaturePredictionService>();
 
 // ---------- plumbing ----------
+builder.Services.AddMemoryCache();
 builder.Services.AddLogging();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

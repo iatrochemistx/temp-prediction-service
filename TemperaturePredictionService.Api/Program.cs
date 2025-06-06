@@ -9,10 +9,7 @@ using TemperaturePredictionService.Infrastructure.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // ---------- options binding ----------
-// Bind OpenAI options from configuration into IOptions<OpenAiOptions>
 builder.Services.Configure<OpenAiOptions>(builder.Configuration.GetSection("OpenAI"));
-
-// Bind CSV‐loader options from configuration into IOptions<CsvLoaderOptions>
 builder.Services.Configure<CsvLoaderOptions>(builder.Configuration.GetSection("CsvLoader"));
 
 // ---------- DI registrations ----------
@@ -41,4 +38,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+// --- Train the model at startup ---
+using (var scope = app.Services.CreateScope())
+{
+    var trainer = scope.ServiceProvider.GetRequiredService<IModelTrainer>();
+    trainer.TrainAsync().GetAwaiter().GetResult();
+}
+
 app.Run();

@@ -1,0 +1,21 @@
+Region,Country,City,Month,Day,Year,Temperature
+Americas,Canada,Toronto,6,1,2023,21.3
+Americas,Canada,Toronto,6,2,2023,21.6
+Americas,USA,New York,6,1,2023,24.0
+Americas,USA,New York,6,2,2023,24.2
+Europe,France,Paris,6,1,2023,25.8
+Europe,France,Paris,6,2,2023,26.0
+Europe,Germany,Berlin,6,1,2023,20.4
+Europe,Germany,Berlin,6,2,2023,20.8
+Europe,Norway,Oslo,6,1,2023,18.1
+Europe,Norway,Oslo,6,2,2023,18.4
+Asia,UAE,Dubai,6,1,2023,38.2
+Asia,UAE,Dubai,6,2,2023,38.6
+Asia,Malaysia,Kuala Lumpur,6,1,2023,31.4
+Asia,Malaysia,Kuala Lumpur,6,2,2023,31.7
+Americas,USA,New York,6,3,2023,24.5
+Europe,Germany,Berlin,6,3,2023,21.1
+Europe,Norway,Oslo,6,3,2023,18.9
+Asia,UAE,Dubai,6,3,2023,39.1
+Asia,Malaysia,Kuala Lumpur,6,3,2023,32.0
+Europe,France,Paris,6,3,2023,26.3

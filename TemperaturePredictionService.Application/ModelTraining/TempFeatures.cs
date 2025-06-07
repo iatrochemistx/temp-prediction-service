@@ -2,16 +2,16 @@ using Microsoft.ML.Data;
 
 namespace TemperaturePredictionService.Application.ModelTraining
 {
-    /// <summary>
-    /// DTO for ML.NET model input: numerical date + city embedding + target temperature.
-    /// </summary>
-    public sealed record TempFeatures
+    public class TempFeatures
     {
-        public float Year { get; init; }
-        public float Month { get; init; }
-        public float Day { get; init; }
+        public float Year { get; set; }
+        public float Month { get; set; }
+        public float Day { get; set; }
         [VectorType(1536)]
-        public float[] CityEmbedding { get; init; } = default!;
-        public float Temperature { get; init; } 
+        public float[] CityEmbedding { get; set; }
+        public float Temperature { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Region { get; set; }
     }
 }

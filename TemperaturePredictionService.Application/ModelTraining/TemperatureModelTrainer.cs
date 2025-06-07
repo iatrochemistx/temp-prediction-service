@@ -46,17 +46,24 @@ namespace TemperaturePredictionService.Application.ModelTraining
 
                 if (!embeddingCache.TryGetValue(record.City, out var emb))
                 {
-                    emb = await _embed.GetEmbeddingAsync(record.City, ct);
+                   
+                    var embedInput = record.Country is not null
+                        ? $"Temperature in {record.City}, {record.Country}"
+                        : record.City;
+                    emb = await _embed.GetEmbeddingAsync(embedInput, ct);
                     embeddingCache[record.City] = emb;
                 }
 
                 featureRows.Add(new TempFeatures
                 {
-                    Year          = record.Date.Year,
-                    Month         = record.Date.Month,
-                    Day           = record.Date.Day,
+                    Year = record.Date.Year,
+                    Month = record.Date.Month,
+                    Day = record.Date.Day,
                     CityEmbedding = emb,
-                    Temperature   = record.Temperature
+                    Temperature = record.Temperature,
+                    City = record.City,
+                    Country = record.Country,
+                    Region = record.Region
                 });
             }
 
@@ -69,12 +76,23 @@ namespace TemperaturePredictionService.Application.ModelTraining
             var ml        = new MLContext(seed: 42);
             var dataView  = ml.Data.LoadFromEnumerable(featureRows);
 
-            var pipeline  = ml.Transforms.Concatenate(
-                                "Features",
-                                new[] { "Year", "Month", "Day", "CityEmbedding" })
-                            .Append(ml.Regression.Trainers.Sdca(
-                                labelColumnName: "Temperature",
-                                featureColumnName: "Features"));
+            var pipeline = ml.Transforms.Categorical.OneHotEncoding("CityEncoded", "City")
+                .Append(ml.Transforms.Categorical.OneHotEncoding("CountryEncoded", "Country"))
+                .Append(ml.Transforms.Categorical.OneHotEncoding("RegionEncoded", "Region"))
+                .Append(ml.Transforms.ProjectToPrincipalComponents(
+                    outputColumnName: "CityPca",
+                    inputColumnName: "CityEmbedding",
+                    rank: 50))
+                .Append(ml.Transforms.Concatenate(
+                    "Features",
+                    "Year", "Month", "Day",
+                    "CityPca", "CityEncoded", "CountryEncoded", "RegionEncoded"))
+                .Append(ml.Regression.Trainers.FastTree(
+                    labelColumnName: "Temperature",
+                    featureColumnName: "Features",
+                    numberOfLeaves: 32,
+                    numberOfTrees: 200,
+                    minimumExampleCountPerLeaf: 10));
 
             var split     = ml.Data.TrainTestSplit(dataView, testFraction: 0.20, seed: 42);
             var model     = pipeline.Fit(split.TrainSet);
@@ -107,7 +125,7 @@ namespace TemperaturePredictionService.Application.ModelTraining
                 MetricsPath: metricsPath,
                 RMSE:        metrics.RootMeanSquaredError,
                 MAE:         metrics.MeanAbsoluteError,
-                ModelType:   "SdcaRegression");
+                ModelType:   "FastTreeRegression");
         }
     }
 }

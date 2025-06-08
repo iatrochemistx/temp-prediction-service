@@ -89,3 +89,28 @@ services:
 * **OpenAI errors** – check the `OpenAI__ApiKey` value and quota.
 
 ---
+## Supported Cities (Examples)
+
+This service supports temperature prediction for dozens of global cities.  
+Here are some examples known to exist in the training data:
+
+- Dubai
+- Paris
+- Oslo
+- Milan
+- Hamburg
+- Toronto
+- Miami
+- Kuala Lumpur
+- Vancouver
+- New York
+- Berlin
+- Sharjah
+- Guangzhou
+- Shenzhen
+- Frankfurt
+- Chicago
+- Montreal
+- Rome
+- Beijing
+- Abu Dhabi
